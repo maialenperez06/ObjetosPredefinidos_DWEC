@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Números primos</title>
+  <style>
+    table { border-collapse: collapse; margin-top: 15px; }
+    td { border: 1px solid black; padding: 8px 14px; }
+  </style>
+</head>
+<body>
+
+  <h1>Números primos</h1>
+  <input type="number" id="numero" min="1">
+  <button onclick="mostrarPrimos()">Mostrar primos</button>
+
+  <div id="resultado"></div>
+
+  <script>
+   
+    function esPrimo(num) {
+      if (num < 1) return false;
+      if (num === 1) return true; 
+
+      let cont = 2;
+     
+      while (num % cont !== 0) {
+        cont = cont + 1;
+      }
+
+     
+      if (num === cont) {
+        return true;  
+      } else {
+        return false; 
+      }
+    }
+
+    
+    function mostrarPrimos() {
+      const numero = Number(document.getElementById("numero").value);
+      let celdas = "";
+
+      for (let i = 1; i <= numero; i++) {
+        if (esPrimo(i)) {
+          celdas += "<td>" + i + "</td>";
+        }
+      }
+
+      document.getElementById("resultado").innerHTML =
+        "<table><tr>" + celdas + "</tr></table>";
+    }
+  </script>
+</body>
+</html>

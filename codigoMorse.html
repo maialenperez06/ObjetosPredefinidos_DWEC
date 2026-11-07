@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Código morse</title>
+  <style>
+    pre { font-size: 20px; }  
+  </style>
+</head>
+<body>
+
+  <h1>Traductor de código morse</h1>
+  <pre id="resultado"></pre>
+
+  <script>
+    const morse = {
+      A: ".-",    B: "-...",  C: "-.-.",  D: "-..",   E: ".",
+      F: "..-.",  G: "--.",   H: "....",  I: "..",    J: ".---",
+      K: "-.-",   L: ".-..",  M: "--",    N: "-.",    Ñ: "--.--",
+      O: "---",   P: ".--.",  Q: "--.-",  R: ".-.",   S: "...",
+      T: "-",     U: "..-",   V: "...-",  W: ".--",   X: "-..-",
+      Y: "-.--",  Z: "--..",
+      0: "-----", 1: ".----", 2: "..---", 3: "...--", 4: "....-",
+      5: ".....", 6: "-....", 7: "--...", 8: "---..", 9: "----.",
+      ".": ".-.-.-", ",": "--..--", "?": "..--..", "!": "-.-.--"
+    };
+    const inverso = {};
+    for (const letra in morse) {
+      inverso[morse[letra]] = letra;
+    }
+    function esMorse(texto) {
+      return /^[.\-— ]+$/.test(texto);
+    }
+
+    function textoAMorse(texto) {
+      const palabras = texto.toUpperCase().split(" ");
+      const palabrasMorse = [];
+
+      for (const palabra of palabras) {
+        const letrasMorse = [];
+        for (const letra of palabra) {
+          letrasMorse.push(morse[letra] || "?");   
+        }
+        palabrasMorse.push(letrasMorse.join(" "));  
+      }
+
+      return palabrasMorse.join("  ");              
+    }
+
+    function morseATexto(texto) {
+      texto = texto.replaceAll("—", "-");           
+      const palabras = texto.trim().split("  ");
+      const resultado = [];
+
+      for (const palabra of palabras) {
+        let frase = "";
+        for (const codigo of palabra.split(" ")) {
+          frase += inverso[codigo] || "?";
+        }
+        resultado.push(frase);
+      }
+
+      return resultado.join(" ");
+    }
+
+    const entrada = window.prompt("Escribe un texto o un código morse:");
+    let salida;
+
+    if (entrada === null || entrada.trim() === "") {
+      salida = "No has escrito nada.";
+    } else if (esMorse(entrada)) {
+      salida = morseATexto(entrada);
+    } else {
+      salida = textoAMorse(entrada).replaceAll("-", "—");  
+    }
+
+    document.getElementById("resultado").textContent = salida;
+  </script>
+</body>
+</html>

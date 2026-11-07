@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio Atributo</title>
+</head>
+<body>
+    <div id="widget"
+        data-widget-name="miWidgetPersonalizado">Elemento Widget</div>
+
+    <script>
+        const elemento = document.getElementById('widget');
+        const valorGetAttribute = elemento.getAttribute('data-widget-name');
+        console.log('Valor con getAttribute:', valorGetAttribute);
+    </script>
+</body>
+</html>
